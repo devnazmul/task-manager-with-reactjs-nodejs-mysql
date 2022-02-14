@@ -7,7 +7,7 @@ export default function Signup() {
   const onSubmit = data => console.log(data);
   console.log(errors);
   return (
-    <div className='w-full bg-black h-screen flex justify-center items-center px-56 '>
+    <div className='w-full bg-white h-screen flex justify-center items-center px-56 '>
       <div className='h-96 bg-white w-full rounded-lg overflow-hidden flex-row-reverse flex py-5 px-5'>
         <div className='h-full w-1/2 bg-white flex justify-center items-center flex-col mb-5'>
           <h1 className='text-5xl font-semibold text-primary mb-5'>Sign Up</h1>

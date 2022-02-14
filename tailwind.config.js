@@ -5,12 +5,15 @@ module.exports = {
   theme: {
     extend: {
         colors: {
-
+          'grad1':'#2AF598',
+          'grad2':'#08AEEA',
           'primary': '#57D04C',
           'silver': '#E8F0FE',
 
         }
     },
   },
-  plugins: [],
-}
+  plugins: [
+    require('tailwind-scrollbar'),
+  ],
+} 
