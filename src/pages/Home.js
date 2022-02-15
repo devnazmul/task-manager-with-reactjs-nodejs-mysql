@@ -1,20 +1,25 @@
 import React, { useState } from 'react';
 import { BsPlusLg } from 'react-icons/bs';
 import AddTaskForm from '../components/AddTaskForm';
+import DateP from '../components/DateP';
 import Table from '../components/Table';
 
 export default function Home() {
 
-  const [isPopupActive,setIsPopupActive] = useState(false);
+  const [isPopupActive, setIsPopupActive] = useState(false);
 
   return (
     <div className='w-full h-screen relative pb-14 pt-5 px-10 flex justify-center items-center flex-col'>
       <AddTaskForm isPopupActive={isPopupActive} setIsPopupActive={setIsPopupActive} />
-      <h1 className='mb-5 text-2xl font-bold'>Task Manager</h1>
-      <div className="tableContain  w-full h-full pb-16 rounded-xl shadow-xl bg-gradient-to-tr from-grad2 to-grad1 relative">
-        <span>Filter</span>
+      <h1 className='mb-3 text-4xl font-bold'>Task Manager</h1>
+      
+      {/* {console.log(<DateP />)} */}
+      <DateP />
+     
+      <div className="tableContain w-full h-5/6 pt-5 pb-12 rounded-xl shadow-xl bg-gradient-to-tr from-grad2 to-grad1 relative">
+        
 
-        <div className='overflow-y-scroll px-10 h-full w-full'>
+        <div className='overflow-y-scroll scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-grad2  scrollbar-thumb-rounded-full scrollbar-track-green-200 scrollbar-track-rounded px-10 pt-10 h-full w-full'>
         <Table />
         </div>
 
