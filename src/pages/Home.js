@@ -34,7 +34,7 @@ export default function Home() {
 
         <div className='overflow-y-scroll scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-grad2  scrollbar-thumb-rounded-full scrollbar-track-green-200 scrollbar-track-rounded px-10 pt-10 h-full w-full'>
           {error.length === 0 ?
-            <Table setTasks={setTasks} tasks={tasks} />
+            <Table setTasks={setTasks} tasks={tasks} setUpdate={setUpdate} update={update} />
             :
             <div className='w-full h-full flex justify-center items-center text-5xl text-white text-bold flex-col'>
               {error[0].message}

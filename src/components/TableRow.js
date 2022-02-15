@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import moment from 'moment';
 import { IoMdDoneAll } from 'react-icons/io'
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 
-export default function TableRow({ task, tasks, setTasks }) {
+export default function TableRow({ task, tasks, setTasks, setUpdate, update }) {
+
     const deleteTask = (id) => {
         axios.delete(`http://localhost:8080/tasks/delete/${id}`).then((res) => {
             console.log(res);
@@ -14,30 +15,40 @@ export default function TableRow({ task, tasks, setTasks }) {
             }
         })
     }
+    const handleComplete = (id) => {
+        const data = {}
+        data.is_completed = 1;
+        axios
+            .put(`http://localhost:8080/tasks/updateone/${id}`, data)
+            .then((res) => {
+                update ? setUpdate(false) : setUpdate(true)
+            });
+    }
+
     return (
         <tr className="border-b border-green-500 bg-green-300">
             <td className="py-3 px-6 text-left">
                 <div className="flex items-center">
-                    <span className="font-medium">{task.title}</span>
+                    <span className={`font-medium ${task.is_completed && 'line-through'}`}>{task.title}</span>
                 </div>
             </td>
             <td className="py-3 px-6 text-center">
                 <div className="flex items-center justify-center">
-                    <span className="bg-red-200 text-red-600 py-1 px-3 rounded-full font-medium">{moment(task.due_date).format('L')} at {moment(task.due_date).format('LT').toLowerCase()}</span>
+                    <span className={`bg-red-200 text-red-600 py-1 px-3 rounded-full font-medium  ${task.is_completed && 'line-through'}`}>{moment(task.due_date).format('L')} at {moment(task.due_date).format('LT').toLowerCase()}</span>
                 </div>
             </td>
 
             <td className="py-3 px-6 text-center">
                 <div className="flex items-center justify-center">
-                    <span className='text-md'>{(task.duration * 0.0166667).toFixed(2)}</span>
+                    <span className={`text-md  ${task.is_completed && 'line-through'}`}>{(task.duration * 0.0166667).toFixed(2)}</span>
                 </div>
             </td>
             <td className="py-3 px-6 text-center">
-                <span className="text-md">{task.type}</span>
+                <span className={`text-md  ${task.is_completed && 'line-through'}`}>{task.type}</span>
             </td>
             <td className="py-3 px-6 text-center">
                 <div className="flex item-center justify-center">
-                    <button className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                    <button onClick={() => { handleComplete(task.id) }} className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                         <IoMdDoneAll />
                     </button>
                     <NavLink to={`/update/${task.id}`} className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">

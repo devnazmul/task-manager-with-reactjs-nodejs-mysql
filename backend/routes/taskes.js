@@ -8,8 +8,9 @@ router.post('/create', (req, res, next) => {
     const due_date = req.body.due_date;
     const duration = req.body.duration;
     const type = req.body.type;
+    const is_completed = false;
 
-    const sql1 = `INSERT INTO tasks (title, due_date, duration, type) VALUES ('${title}', '${due_date}', '${duration}', '${type}')`;
+    const sql1 = `INSERT INTO tasks (title, due_date, duration, type, is_completed) VALUES ('${title}', '${due_date}', '${duration}', '${type}', ${is_completed})`;
     db.query(sql1, (err, rows, fields) => {
         if (!err) {
             res.send({
@@ -58,6 +59,22 @@ router.put('/update/:id', (req, res, next) => {
 
     console.log(due_date);
     const sql1 = `UPDATE tasks SET title = '${title}', due_date = '${due_date}', duration = '${duration}', type = '${type}' WHERE tasks.id = ${id}`;
+    db.query(sql1, (err, rows, fields) => {
+        if (!err) {
+            res.send({
+                message: 'update success!',
+                status: 'done'
+            })
+        } else {
+            res.send(err)
+        }
+    })
+})
+
+router.put('/updateone/:id', (req, res, next) => {
+    const id = parseInt(req.params.id);
+
+    const sql1 = `UPDATE tasks SET is_completed = '${parseInt(req.body.is_completed)}' WHERE tasks.id = ${id}`;
     db.query(sql1, (err, rows, fields) => {
         if (!err) {
             res.send({

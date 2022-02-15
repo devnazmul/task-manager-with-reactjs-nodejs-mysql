@@ -1,6 +1,6 @@
 import React from 'react';
 import TableRow from './TableRow';
-export default function Table({ tasks, setTasks }) {
+export default function Table({ tasks, setTasks, setUpdate, update }) {
     return (
         <>
 
@@ -21,7 +21,7 @@ export default function Table({ tasks, setTasks }) {
                                     </tr>
                                 </thead>
                                 <tbody className="text-gray-600 text-sm font-light">
-                                    {tasks.map((task) => <TableRow key={task} task={task} tasks={tasks} setTasks={setTasks} />)}
+                                    {tasks.map((task) => <TableRow key={task} task={task} tasks={tasks} setTasks={setTasks} setUpdate={setUpdate} update={update} />)}
                                 </tbody>
                             </table>
                         </div>

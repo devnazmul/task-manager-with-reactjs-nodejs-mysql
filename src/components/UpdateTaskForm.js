@@ -28,19 +28,7 @@ export default function UpdateTaskForm() {
             .then((res) => {
                 console.log(res.data);
                 reset();
-                // if (res.data) {
-                //   if (commentChange) {
-                //     setCommentChange(false);
-                //     setIsDisableComment(false);
-                //     reset();
-                //   }
-                //   if (!commentChange) {
-                //     setCommentChange(true);
-                //     setIsDisableComment(false);
-                //     reset();
-                //   }
-                //   reset();
-                // }
+
             });
     };
 
