@@ -23,6 +23,8 @@ router.post('/create', (req, res, next) => {
 
 })
 
+
+
 router.get('/', (req, res, next) => {
     const sql1 = `SELECT * FROM tasks`;
     db.query(sql1, (err, rows, fields) => {
@@ -34,10 +36,12 @@ router.get('/', (req, res, next) => {
     })
 })
 
+
+
 router.get('/:id', (req, res, next) => {
 
     const id = parseInt(req.params.id);
-    console.log(req.params.id);
+    
     const sql1 = `SELECT * FROM tasks WHERE id=${id}`;
     db.query(sql1, (err, rows, fields) => {
         if (!err) {
@@ -49,6 +53,8 @@ router.get('/:id', (req, res, next) => {
     })
 })
 
+
+
 router.put('/update/:id', (req, res, next) => {
     const id = parseInt(req.params.id);
 
@@ -57,7 +63,6 @@ router.put('/update/:id', (req, res, next) => {
     const duration = req.body.duration;
     const type = req.body.type;
 
-    console.log(due_date);
     const sql1 = `UPDATE tasks SET title = '${title}', due_date = '${due_date}', duration = '${duration}', type = '${type}' WHERE tasks.id = ${id}`;
     db.query(sql1, (err, rows, fields) => {
         if (!err) {
@@ -70,6 +75,8 @@ router.put('/update/:id', (req, res, next) => {
         }
     })
 })
+
+
 
 router.put('/updateone/:id', (req, res, next) => {
     const id = parseInt(req.params.id);
@@ -87,6 +94,8 @@ router.put('/updateone/:id', (req, res, next) => {
     })
 })
 
+
+
 router.delete('/delete/:id', (req, res, next) => {
     const id = parseInt(req.params.id);
     const sql1 = `DELETE FROM tasks WHERE tasks.id = ${id}`;
@@ -102,4 +111,18 @@ router.delete('/delete/:id', (req, res, next) => {
     })
 })
 
+
+router.post('/filter', (req, res, next) => {
+    const data = req.body;
+    
+    const sql1 = `SELECT * FROM tasks WHERE due_date LIKE '%${data.time}%'`;
+    
+    db.query(sql1, (err, rows, fields) => {
+        if (!err) {
+            res.send(rows)
+        } else {
+            res.send(err)
+        }
+    })
+})
 module.exports = router;

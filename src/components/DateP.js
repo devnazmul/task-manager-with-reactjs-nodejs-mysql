@@ -1,17 +1,23 @@
-import moment from 'moment';
+import axios from 'axios';
 import React from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useForm } from 'react-hook-form';
 
-export default function DateP({ setUpdate, tasks, setError }) {
+export default function DateP({ update,setUpdate, setTasks, setError }) {
     const { register, handleSubmit } = useForm();
     const onSubmit = data => {
-        const time = moment(data.due_date).format('L')
-        tasks.filter((task) => {
-            moment(task.due_date).format('L') === time ? setUpdate(task) : setError([{ message: 'No data found' }])
+        const time = data.due_date
+        axios.post(`http://localhost:8080/tasks/filter`,{time}).then((res)=>{
+            
+            if (res.data.length > 0) {
+                setTasks(res.data);
+                // update?setUpdate(false):setUpdate(true);
+            } else {
+                setError({message:'No task found!'})
+            }
+            
         })
     };
-
 
     return (
         <form className='w-full mb-1' onSubmit={handleSubmit(onSubmit)}>
