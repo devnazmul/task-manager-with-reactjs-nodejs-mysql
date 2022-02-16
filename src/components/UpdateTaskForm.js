@@ -2,14 +2,13 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { IoIosClose } from 'react-icons/io';
-import { NavLink, useParams } from 'react-router-dom';
-
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 
 export default function UpdateTaskForm() {
 
     const { id } = useParams();
     const [task, setTask] = useState([]);
-
+    const navigate = useNavigate();
     useEffect(() => {
         axios
             .get(`http://localhost:8080/tasks/${id}`)
@@ -28,7 +27,7 @@ export default function UpdateTaskForm() {
             .then((res) => {
                 console.log(res.data);
                 reset();
-
+                navigate('/')
             });
     };
 
